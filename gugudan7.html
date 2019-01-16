@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>조건문을 활용한 구구단 출력(콘솔버전)</h1>
+    <script>
+        var n = Number(prompt("구구단 몇 단을 출력할까요?"));
+        if(1 < n && n < 10) {
+            for(var i = 1; i < 10; i++) {
+                console.log(n + " * " + i + " = " + n * i);
+            }
+        } else {
+            alert("2이상, 9이하의 값만 입력할 수 있습니다.");
+        }
+    </script>
+</body>
+</html>
