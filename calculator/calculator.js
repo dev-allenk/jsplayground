@@ -6,17 +6,16 @@ var cal = function() {
     var str = ""
     if(inputs[2] === '+') {
         str += "더하기 : " + (inputs[0] + inputs[1]) + "<br>";
-        result.innerHTML = str;
     } else if(inputs[2] === '-') {
         str += "빼기 : " + (inputs[0] - inputs[1]) + "<br>";
-        result.innerHTML = str;
     } else if(inputs[2] === '*') {
         str += "곱하기 : " + (inputs[0] * inputs[1]) + "<br>";
-        result.innerHTML = str;
     } else if(inputs[2] === '/') {
         str += "나누기 : " + (inputs[0] / inputs[1]) + "<br>";
-        result.innerHTML = str;
+    } else {
+        alert('잘못 입력되었습니다');
     }
+    result.innerHTML = str;
 }
 
 var readInput = function() {
