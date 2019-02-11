@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>계산기2</title>
+    <title>계산기3</title>
 </head>
 <body>
-    <h1>계산기 구현 연습2</h1>
-    <input id="input1" type="number">
-    <input id="input2" type="number">
-    <button id="calculate" onclick="cal()">사칙연산결과</button>
+    <h1>계산기 구현 연습3</h1>
+    <div id="main">
+        숫자1 : <input id="input1" type="text"><br>
+        숫자2 : <input id="input2" type="text"><br>
+        연산기호 : <input id="input3" type="text">
+        <button id="calculate" onclick="cal()">결과출력</button>
+        <p id="result">계산결과</p>
+    </div>
 
     <script src="calculator.js"></script>
 </body>
