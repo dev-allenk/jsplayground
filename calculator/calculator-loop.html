@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>무한루프 활용 계산기 구현</title>
+</head>
+<body>
+    <h1>무한루프를 활용한 계산기 구현</h1>
+    <script>
+        var number = [];
+        var operator = [];
+        var result = [0];
+        
+        var calc = function() {
+            if(operator[0] === '+') {
+                result[0] += number[0];
+            } else if(operator[0] === '-') {
+                result[0] -= number[0];
+            } else if(operator[0] === '*') {
+                result[0] *= number[0];
+            } else if(operator[0] === '/') {
+                result[0] /= number[0];
+            } else {
+                result[0] += number[0];
+            }
+        };
+        var print = function() {
+            document.write("결과값 : " + result[0]);
+        }
+
+        while(true) {
+            var input = prompt('숫자와 연산자를 번갈아 입력해주세요(q를 입력하면 종료합니다)');
+            if(input == 'q') {
+                break;
+            } else if(input === '+') {
+                operator[0] = input;
+            } else if(input === '-') {
+                operator[0] = input;
+            } else if(input === '*') {
+                operator[0] = input;
+            } else if(input === '/') {
+                operator[0] = input;
+            } else {
+                number[0] = Number(input);
+                calc();
+            }
+        };
+        print();
+
+    </script>
+</body>
+</html>
