@@ -4,18 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>계산기3</title>
+    <title>계산기</title>
 </head>
 <body>
-    <h1>계산기 구현 연습3</h1>
-    <div id="main">
-        숫자1 : <input id="input1" type="text"><br>
-        숫자2 : <input id="input2" type="text"><br>
-        연산기호 : <input id="input3" type="text">
-        <button id="calculate" onclick="cal()">결과출력</button>
-        <p id="result">계산결과</p>
-    </div>
+    <h1>계산기 구현 연습4</h1>
+    <script>
+        function print() {
+            document.write("결과값 : " + result);
+        }
 
-    <script src="calculator.js"></script>
+        var n1 = Number(prompt('첫번째 숫자를 입력해주세요'));
+        var result = n1;
+        var n = 2;
+        while(true) {
+            var op = prompt('연산자를 입력해주세요(q를 입력하면 결과를 출력합니다');
+            if(op === 'q') {
+                break;
+            }
+            var n2 = Number(prompt(n + '번째 숫자를 입력해주세요'));
+            if(op === '+') {
+                result += n2;
+            } else if(op === '-') {
+                result -= n2;
+            } else if(op === '*') {
+                result *= n2;
+            } else if(op === '/') {
+                result /= n2;
+            }
+            n++;
+        };
+        print();
+
+    </script>
 </body>
 </html>
