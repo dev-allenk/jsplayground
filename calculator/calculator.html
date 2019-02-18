@@ -7,60 +7,80 @@
     <title>계산기</title>
 </head>
 <body>
-    <h1>계산기 구현 연습5</h1>
+    <h1>계산기 구현 연습</h1>
+    <p>객체를 활용한 계산기 구현</p>
+    <div id="formula"></div>
     <div id="output"></div>
 
     <script>
-        function getFirstValue() {
+        input = {}
+        input.n = 2;
+        input.all = [];
+
+        input.getFirstValue = function() {
             var n1 = Number(prompt('첫번째 숫자를 입력해주세요'));
+            this.all.push(n1);
             return n1;
         }
-        var n = 2;
-        function getSecondValue() {
-            var n2 = Number(prompt(n + '번째 숫자를 입력해주세요'));
-            n++;
+        input.getSecondValue = function() {
+            var n2 = Number(prompt(this.n + '번째 숫자를 입력해주세요'));
+            this.all.push(n2);
+            this.n++;
             return n2;
         }
-        function getOperator() {
+        input.getOperator = function() {
             while(true) {
-            var op = prompt('연산자를 입력해주세요(q를 입력하면 결과를 출력합니다)');
+                var op = prompt('연산자를 입력해주세요(q를 입력하면 결과를 출력합니다)');
                 if(op === '+' || op === '-' || op === '*' || op === '/' || op === 'q') {
-                    return op;
+                    break;
                 } else {
                     alert('올바른 연산자를 입력해주세요');
                 }
             }
+            this.all.push(op);
+            return op;
         }
-        function calc(first, second, op) {
+
+        calc = {}
+        calc.calculate = function(first, second, operator) {
             var ret;
-            if(op === '+') {
+            if(operator === '+') {
                 ret = first + second;
-            } else if(op === '-') {
+            } else if(operator === '-') {
                 ret = first - second;
-            } else if(op === '*') {
+            } else if(operator === '*') {
                 ret = first * second;
-            } else if(op === '/') {
+            } else if(operator === '/') {
                 ret = first / second;
             }   
             return ret;
         }
 
-        function print(value) {
+        output = {}
+        output.print = function(value) {
             return "결과값 : " + value;
         }
 
+        formula = {}
+        formula.print = function() {
+            var ret = input.all.slice(0, input.all.length-1);
+            return "입력값 : " + ret.join(" ");
+        }
+        
         function main() {
-            var result = getFirstValue();
+            var result = input.getFirstValue();
             while(true) {
-                var op = getOperator();
+                var op = input.getOperator();
                 if(op === 'q') {
                     break;
                 }
-                var num = getSecondValue();
-                result = calc(result, num, op);
+                var num = input.getSecondValue();
+                result = calc.calculate(result, num, op);
             }
-            var output = document.getElementById('output');
-            output.innerHTML = print(result);
+            var form = document.getElementById('formula');
+            form.innerHTML = formula.print();
+            var out = document.getElementById('output');
+            out.innerHTML = output.print(result);
         }
 
         main();
