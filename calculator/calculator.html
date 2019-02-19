@@ -10,94 +10,43 @@
     <h1>계산기 구현 연습</h1>
     <p>객체를 활용한 계산기 구현</p>
     <input id="input" type="text"><br>
-    <button onclick="one()">1</button>
-    <button onclick="two()">2</button>
-    <button onclick="three()">3</button>
-    <button onclick="plus()">+</button><br>
-    <button onclick="four()">4</button>
-    <button onclick="five()">5</button>
-    <button onclick="six()">6</button>
-    <button onclick="minus()">-</button><br>
-    <button onclick="seven()">7</button>
-    <button onclick="eight()">8</button>
-    <button onclick="nine()">9</button>
-    <button onclick="multiple()">*</button><br>
-    <button onclick="zero()">0</button>
-    <button onclick="division()">/</button>
-    <button id="button" onclick="main()">계산</button>
+    <button onclick="inputNum(event)">7</button>
+    <button onclick="inputNum(event)">8</button>
+    <button onclick="inputNum(event)">9</button>
+    <button onclick="inputNum(event)">/</button><br>
+    <button onclick="inputNum(event)">4</button>
+    <button onclick="inputNum(event)">5</button>
+    <button onclick="inputNum(event)">6</button>
+    <button onclick="inputNum(event)">*</button><br>
+    <button onclick="inputNum(event)">1</button>
+    <button onclick="inputNum(event)">2</button>
+    <button onclick="inputNum(event)">3</button>
+    <button onclick="inputNum(event)">-</button><br>
+    <button onclick="erase()">bs</button>
+    <button onclick="inputNum(event)">0</button>
+    <button id="button" onclick="main()">=</button>
+    <button onclick="inputNum(event)">+</button>
     <div id="formula"></div>
     <div id="output"></div>
 
     <script>
-        function one() {
-            var i = document.getElementById('input')
-            i.value += '1';
-        }
-        function two() {
-            var i = document.getElementById('input')
-            i.value += '2';
-        }
-        function three() {
-            var i = document.getElementById('input')
-            i.value += '3';
-        }
-        function four() {
-            var i = document.getElementById('input')
-            i.value += '4';
-        }
-        function five() {
-            var i = document.getElementById('input')
-            i.value += '5';
-        }
-        function six() {
-            var i = document.getElementById('input')
-            i.value += '6';
-        }
-        function seven() {
-            var i = document.getElementById('input')
-            i.value += '7';
-        }
-        function eight() {
-            var i = document.getElementById('input')
-            i.value += '8';
-        }
-        function nine() {
-            var i = document.getElementById('input')
-            i.value += '9';
-        }
-        function zero() {
-            var i = document.getElementById('input')
-            i.value += '0';
-        }
-        function plus() {
-            var i = document.getElementById('input')
-            i.value += '+';
-        }
-        function minus() {
-            var i = document.getElementById('input')
-            i.value += '-';
-        }
-        function multiple() {
-            var i = document.getElementById('input')
-            i.value += '*';
-        }
-        function division() {
-            var i = document.getElementById('input')
-            i.value += '/';
-        }
-
         var input = {
-                all: [],
-                operator: [],
-                numbers: [],
-                tempNumbers: []
-            };
-
-        input.readInput = function() {
-            var in1 = document.getElementById('input').value;
-            this.all = in1.split("");
-            return this.all;
+            all: [],
+            operator: [],
+            numbers: [],
+            tempNumbers: []
         };
+        
+        function inputNum(event) {
+            var i = document.getElementById('input')
+            i.value += event.target.innerHTML;
+            input.all.push(event.target.innerHTML);
+        }
+        
+        function erase() {
+            input.all.pop();
+            document.getElementById('input').value = input.all.join("");
+        }
 
         input.seperate = function() {
             for(var i = 0; i < this.all.length; i++) {
@@ -122,7 +71,7 @@
         input.getOperator = function() {
             var op = this.operator.shift();
             return op;
-        };
+        };  
 
         var calc = {};
         calc.calculate = function(first, second, operator) {
@@ -145,7 +94,6 @@
         };
 
         function main() {
-            input.readInput();
             input.seperate();
             var result = input.getValue();
             while(input.operator.length != 0) {
