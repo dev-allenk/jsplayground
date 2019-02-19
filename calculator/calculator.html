@@ -9,39 +9,50 @@
 <body>
     <h1>계산기 구현 연습</h1>
     <p>객체를 활용한 계산기 구현</p>
+    <input id="input" type="text">
+    <button id="button" onclick="main()">계산</button>
     <div id="formula"></div>
     <div id="output"></div>
 
     <script>
-        input = {}
-        input.n = 2;
-        input.all = [];
+        var input = {
+                all: [],
+                operator: [],
+                numbers: []
+            };
 
-        input.getFirstValue = function() {
-            var n1 = Number(prompt('첫번째 숫자를 입력해주세요'));
-            this.all.push(n1);
-            return n1;
-        }
-        input.getSecondValue = function() {
-            var n2 = Number(prompt(this.n + '번째 숫자를 입력해주세요'));
-            this.all.push(n2);
-            this.n++;
-            return n2;
-        }
-        input.getOperator = function() {
-            while(true) {
-                var op = prompt('연산자를 입력해주세요(q를 입력하면 결과를 출력합니다)');
-                if(op === '+' || op === '-' || op === '*' || op === '/' || op === 'q') {
-                    break;
+        input.readInput = function() {
+            var in1 = document.getElementById('input').value;
+            this.all = in1.split("");
+            return this.all;
+        };
+
+        input.seperate = function() {
+            for(var i = 1; i < this.all.length; i++) {
+                if(this.all[i] === '+' || this.all[i] === '-' || this.all[i] === '*' || this.all[i] === '/') {
+                    this.operator.push(this.all[i]);
                 } else {
-                    alert('올바른 연산자를 입력해주세요');
+                    this.numbers.push(this.all[i]);
                 }
             }
-            this.all.push(op);
-            return op;
-        }
+        };
 
-        calc = {}
+        input.getFirstValue = function() {
+            var n1 = Number(this.all[0]);
+            return n1;
+        };
+
+        input.getSecondValue = function() {
+            var n2 = Number(this.numbers.shift());
+            return n2;
+        };
+
+        input.getOperator = function() {
+            var op = this.operator.shift();
+            return op;
+        };
+
+        var calc = {};
         calc.calculate = function(first, second, operator) {
             var ret;
             if(operator === '+') {
@@ -54,36 +65,26 @@
                 ret = first / second;
             }   
             return ret;
-        }
+        };
 
-        output = {}
+        var output = {};
         output.print = function(value) {
             return "결과값 : " + value;
-        }
+        };
 
-        formula = {}
-        formula.print = function() {
-            var ret = input.all.slice(0, input.all.length-1);
-            return "입력값 : " + ret.join(" ");
-        }
-        
         function main() {
+            input.readInput();
+            input.seperate();
             var result = input.getFirstValue();
-            while(true) {
+            for(var i = 1; i < input.all.length/2; i++) {
                 var op = input.getOperator();
-                if(op === 'q') {
-                    break;
-                }
                 var num = input.getSecondValue();
+                console.log(result, num, op);
                 result = calc.calculate(result, num, op);
             }
-            var form = document.getElementById('formula');
-            form.innerHTML = formula.print();
             var out = document.getElementById('output');
             out.innerHTML = output.print(result);
         }
-
-        main();
 
     </script>
 </body>
