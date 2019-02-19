@@ -18,25 +18,31 @@
         var input = {
                 all: [],
                 operator: [],
-                numbers: []
+                numbers: [],
+                tempNumbers: []
             };
 
         input.readInput = function() {
             var in1 = document.getElementById('input').value;
-            this.all = in1.split(" ");
+            this.all = in1.split("");
             return this.all;
         };
 
         input.seperate = function() {
             for(var i = 0; i < this.all.length; i++) {
-                if(this.all[i] === '+' || this.all[i] === '-' || this.all[i] === '*' || this.all[i] === '/') {
+                if(this.all[i + 1] === '+' || this.all[i + 1] === '-' || this.all[i + 1] === '*' || this.all[i + 1] === '/') { // 2.연산자 앞의 숫자가 나오면 거기까지 한 숫자 이므로 join으로 합친 후 배열로 분리
+                    this.tempNumbers.push(this.all[i]);
+                    this.numbers.push(this.tempNumbers.join(""));
+                    this.tempNumbers = [];
+                } else if(this.all[i] === '+' || this.all[i] === '-' || this.all[i] === '*' || this.all[i] === '/') { // 3. 연산자는 따로 분리
                     this.operator.push(this.all[i]);
-                } else {
-                    this.numbers.push(this.all[i]);
-                }
+                } else { // 1. 연산자 나오기 전까지 숫자 임시 보관
+                    this.tempNumbers.push(this.all[i]);
+                } 
             }
+            this.numbers.push(this.tempNumbers.join("")); // 마지막 남은 숫자 합쳐서 madeNum으로 push
         };
-
+        
         input.getValue = function() {
             var n = Number(this.numbers.shift());
             return n;
