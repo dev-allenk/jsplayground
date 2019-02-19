@@ -23,12 +23,12 @@
 
         input.readInput = function() {
             var in1 = document.getElementById('input').value;
-            this.all = in1.split("");
+            this.all = in1.split(" ");
             return this.all;
         };
 
         input.seperate = function() {
-            for(var i = 1; i < this.all.length; i++) {
+            for(var i = 0; i < this.all.length; i++) {
                 if(this.all[i] === '+' || this.all[i] === '-' || this.all[i] === '*' || this.all[i] === '/') {
                     this.operator.push(this.all[i]);
                 } else {
@@ -37,14 +37,9 @@
             }
         };
 
-        input.getFirstValue = function() {
-            var n1 = Number(this.all[0]);
-            return n1;
-        };
-
-        input.getSecondValue = function() {
-            var n2 = Number(this.numbers.shift());
-            return n2;
+        input.getValue = function() {
+            var n = Number(this.numbers.shift());
+            return n;
         };
 
         input.getOperator = function() {
@@ -63,7 +58,7 @@
                 ret = first * second;
             } else if(operator === '/') {
                 ret = first / second;
-            }   
+            }
             return ret;
         };
 
@@ -75,11 +70,10 @@
         function main() {
             input.readInput();
             input.seperate();
-            var result = input.getFirstValue();
-            for(var i = 1; i < input.all.length/2; i++) {
+            var result = input.getValue();
+            while(input.operator.length != 0) {
                 var op = input.getOperator();
-                var num = input.getSecondValue();
-                console.log(result, num, op);
+                var num = input.getValue();
                 result = calc.calculate(result, num, op);
             }
             var out = document.getElementById('output');
