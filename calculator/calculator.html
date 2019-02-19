@@ -9,12 +9,83 @@
 <body>
     <h1>계산기 구현 연습</h1>
     <p>객체를 활용한 계산기 구현</p>
-    <input id="input" type="text">
+    <input id="input" type="text"><br>
+    <button onclick="one()">1</button>
+    <button onclick="two()">2</button>
+    <button onclick="three()">3</button>
+    <button onclick="plus()">+</button><br>
+    <button onclick="four()">4</button>
+    <button onclick="five()">5</button>
+    <button onclick="six()">6</button>
+    <button onclick="minus()">-</button><br>
+    <button onclick="seven()">7</button>
+    <button onclick="eight()">8</button>
+    <button onclick="nine()">9</button>
+    <button onclick="multiple()">*</button><br>
+    <button onclick="zero()">0</button>
+    <button onclick="division()">/</button>
     <button id="button" onclick="main()">계산</button>
     <div id="formula"></div>
     <div id="output"></div>
 
     <script>
+        function one() {
+            var i = document.getElementById('input')
+            i.value += '1';
+        }
+        function two() {
+            var i = document.getElementById('input')
+            i.value += '2';
+        }
+        function three() {
+            var i = document.getElementById('input')
+            i.value += '3';
+        }
+        function four() {
+            var i = document.getElementById('input')
+            i.value += '4';
+        }
+        function five() {
+            var i = document.getElementById('input')
+            i.value += '5';
+        }
+        function six() {
+            var i = document.getElementById('input')
+            i.value += '6';
+        }
+        function seven() {
+            var i = document.getElementById('input')
+            i.value += '7';
+        }
+        function eight() {
+            var i = document.getElementById('input')
+            i.value += '8';
+        }
+        function nine() {
+            var i = document.getElementById('input')
+            i.value += '9';
+        }
+        function zero() {
+            var i = document.getElementById('input')
+            i.value += '0';
+        }
+        function plus() {
+            var i = document.getElementById('input')
+            i.value += '+';
+        }
+        function minus() {
+            var i = document.getElementById('input')
+            i.value += '-';
+        }
+        function multiple() {
+            var i = document.getElementById('input')
+            i.value += '*';
+        }
+        function division() {
+            var i = document.getElementById('input')
+            i.value += '/';
+        }
+
         var input = {
                 all: [],
                 operator: [],
