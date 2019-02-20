@@ -31,23 +31,33 @@
 
     <script>
         var input = {
-            all: [],
-            operator: [],
-            numbers: [],
-            tempNumbers: []
+            all: [], //입력값을 보관
+            operator: [], //연산자 보관
+            numbers: [], //계산을 위해 합쳐진 숫자
+            tempNumbers: [] //합치기전 숫자 임시 보관
         };
         
+        //버튼 눌렀을때 입력값을 배열에 보관
         function inputNum(event) {
             var i = document.getElementById('input')
             i.value += event.target.innerHTML;
             input.all.push(event.target.innerHTML);
         }
         
+        //백스페이스 기능
         function erase() {
             input.all.pop();
             document.getElementById('input').value = input.all.join("");
         }
+        
+        //배열 초기화
+        input.initiateInput = function() {
+            input.all = [];
+            input.numbers = [];
+            input.tempNumbers = [];
+        }
 
+        //input.all의 입력값을 숫자와 연산자로 분리
         input.seperate = function() {
             for(var i = 0; i < this.all.length; i++) {
                 if(this.all[i + 1] === '+' || this.all[i + 1] === '-' || this.all[i + 1] === '*' || this.all[i + 1] === '/') { // 2.연산자 앞의 숫자가 나오면 거기까지 한 숫자 이므로 join으로 합친 후 배열로 분리
@@ -60,19 +70,22 @@
                     this.tempNumbers.push(this.all[i]);
                 } 
             }
-            this.numbers.push(this.tempNumbers.join("")); // 마지막 남은 숫자 합쳐서 madeNum으로 push
+            this.numbers.push(this.tempNumbers.join("")); // 마지막 남은 숫자 합쳐서 numbers로 push
         };
         
+        //온전히 합쳐진 숫자를 가져오는 메소드
         input.getValue = function() {
             var n = Number(this.numbers.shift());
             return n;
         };
 
+        //연산자를 가져오는 메소드
         input.getOperator = function() {
             var op = this.operator.shift();
             return op;
         };  
 
+        //가져온 숫자와 연산자로 계산
         var calc = {};
         calc.calculate = function(first, second, operator) {
             var ret;
@@ -89,10 +102,20 @@
         };
 
         var output = {};
-        output.print = function(value) {
-            return "결과값 : " + value;
+        
+        //결과값을 출력
+        output.print = function(v) {
+            var i = document.getElementById('input');
+            i.value = v;
         };
 
+        //결과값을 다시 input.all에 하나씩 나눠서 넣어주는 메소드
+        //결과값에 이어서 연속적인 계산이 가능하게 함
+        output.inputResult = function(v) {
+            input.all.push(v);
+        };
+        
+        //=클릭시 수행
         function main() {
             input.seperate();
             var result = input.getValue();
@@ -101,8 +124,9 @@
                 var num = input.getValue();
                 result = calc.calculate(result, num, op);
             }
-            var out = document.getElementById('output');
-            out.innerHTML = output.print(result);
+            output.print(result);
+            input.initiateInput();
+            output.inputResult(result);
         }
 
     </script>
