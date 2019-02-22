@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>puzzle practice</title>
+</head>
+
+<body>
+    <h1>puzzle practice</h1>
+    <div id="text">HELLO</div>
+    <div id="textBtn"></div>
+    <div>
+        <button id="btnTurn" onclick="turn()">뒤집기</button>
+        <button id="btnPush" onclick="push()">밀어내기</button>
+    </div>
+    <div id="result">일치합니다</div>
+
+    <script>
+        const textBtn = {
+            init: [],
+            temp: []
+        };
+
+        textBtn.makeBtn = function () {
+            for (let i = 0; i < this.temp.length; i++) {
+                let btn = '<button>' + this.temp[i] + '</button>';
+                document.getElementById('textBtn').innerHTML += btn;
+            }
+        }
+        textBtn.initDisp = function () {
+            textBtn.init = document.getElementById('text').innerHTML.split('');
+            textBtn.temp = document.getElementById('text').innerHTML.split('');
+            textBtn.makeBtn();
+        }
+        textBtn.initDisp();
+
+        function turn() {
+            console.log('turn');
+        }
+
+        function push() {
+            textBtn.temp[5] = textBtn.temp.pop();
+            textBtn.temp[4] = textBtn.temp[3];
+            textBtn.temp[3] = textBtn.temp[2];
+            textBtn.temp[2] = textBtn.temp[1];
+            textBtn.temp[1] = textBtn.temp[0];
+            textBtn.temp[0] = textBtn.temp.pop();
+            document.getElementById('textBtn').innerHTML = '';
+            textBtn.makeBtn();
+            dispResult();
+        }
+
+        function dispResult() {
+            if(textBtn.init.join('') == textBtn.temp.join('')) {
+                document.getElementById('result').innerHTML = '일치합니다';
+            } else {
+                document.getElementById('result').innerHTML = '일치하지 않습니다';
+            }
+        }
+
+    </script>
+</body>
+
+</html>
