@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>puzzle practice</title>
+    <style>
+        .btn {
+            height: 30px;
+        }
+        button {
+            height: 50px;
+            margin: 1px;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,60 +23,63 @@
     <div id="textBtn"></div>
     <div>
         <button id="btnTurn" onclick="turn()">뒤집기</button>
-        <button id="btnPushL" onclick="pushLeft()">왼쪽으로<br>밀어내기</button>
-        <button id="btnPushR" onclick="pushRight()">오른쪽으로<br>밀어내기</button>
+        <button id="btnPushL" onclick="pushLeft()">왼쪽으로밀어내기</button>
+        <button id="btnPushR" onclick="pushRight()">오른쪽으로밀어내기</button>
     </div>
     <div id="result">일치합니다</div>
 
     <script>
         const textBtn = {
-            init: [],
-            temp: []
+            btns: []
         };
+        const initialText = document.getElementById('text').innerHTML;
 
+        //텍스트를 읽어와서 배열에 넣고 버튼 생성하는 메소드실행
+        textBtn.initDisp = function () {
+            this.btns = initialText.split('');
+            this.makeBtn();
+        }
+        //배열에서 텍스트를 하나씩 읽어와서 HTML버튼으로 구현하는 메소드
         textBtn.makeBtn = function () {
-            for (let i = 0; i < this.temp.length; i++) {
-                let btn = '<button>' + this.temp[i] + '</button>';
+            for (let i = 0; i < this.btns.length; i++) {
+                let btn = '<button class="btn">' + this.btns[i] + '</button>';
                 document.getElementById('textBtn').innerHTML += btn;
             }
         }
-        textBtn.initDisp = function () {
-            textBtn.init = document.getElementById('text').innerHTML.split('');
-            textBtn.temp = document.getElementById('text').innerHTML.split('');
-            textBtn.makeBtn();
-        }
-        textBtn.initDisp();
-        
+        //표시되어있던 버튼 지우고 재배열된 버튼 표시
         textBtn.dispBtn = function () {
             document.getElementById('textBtn').innerHTML = '';
-            textBtn.makeBtn();
+            this.makeBtn();
             dispResult();
         }
+        //초기 버튼 생성
+        textBtn.initDisp();
+        
 
         function turn() {
             for(let i = 4; i >= 0; i--) {
-                textBtn.temp.push(textBtn.temp[i]);
+                textBtn.btns.push(textBtn.btns[i]);
             }
             for(let i = 0; i < 5; i++) {
-                textBtn.temp.shift()
+                textBtn.btns.shift()
             }
             textBtn.dispBtn();
         }
 
         function pushLeft() {
-            textBtn.temp.push(textBtn.temp[0]);
-            textBtn.temp.shift();
+            textBtn.btns.push(textBtn.btns[0]);
+            textBtn.btns.shift();
             textBtn.dispBtn();
         }
 
         function pushRight() {
-            textBtn.temp.unshift(textBtn.temp[4]) 
-            textBtn.temp.pop();
+            textBtn.btns.unshift(textBtn.btns[4]) 
+            textBtn.btns.pop();
             textBtn.dispBtn();
         }
 
         function dispResult() {
-            if(textBtn.init.join('') == textBtn.temp.join('')) {
+            if(initialText == textBtn.btns.join('')) {
                 document.getElementById('result').innerHTML = '일치합니다';
             } else {
                 document.getElementById('result').innerHTML = '일치하지 않습니다';
