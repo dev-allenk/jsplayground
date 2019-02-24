@@ -15,96 +15,30 @@
             height: 50px;
             margin: 1px;
         }
+
+        #restart {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <h1>puzzle practice</h1>
+    <div id="count"></div>
     <div id="text">HELLO</div>
     <div id="textBtn"></div>
-    <div>
-        <button id="btnTurn" onclick="turn()">뒤집기</button>
-        <button id="btnPushL" onclick="pushLeft()">왼쪽으로밀어내기</button>
-        <button id="btnPushR" onclick="pushRight()">오른쪽으로밀어내기</button>
-        <button id="shuffle" onclick="shuffle()">섞기</button>
+    <div id="actionBtns">
+        <button id="btnTurn" onclick="action.turn()">뒤집기</button>
+        <button id="btnPushL" onclick="action.pushLeft()">왼쪽으로밀어내기</button>
+        <button id="btnPushR" onclick="action.pushRight()">오른쪽으로밀어내기</button>
+        <button id="shuffle" onclick="action.shuffle()">섞기</button>
+    </div>
+    <div id="restart">
+        <button onclick="game.restart()">다시시작</button>
     </div>
     <div id="result">일치합니다</div>
 
-    <script>
-        const textBtn = {
-            text: ['HELLO', 'NICE TO', 'MEET', 'YOU', 'HAVE', 'NICE', 'WONDERFUL', 'BEAUTIFUL', 'DAY', 'LOVE'],
-            btns: []
-        };
-        //text배열에서 랜덤하게 단어를 골라서 btns배열에 한글자씩 넣고 버튼 생성하는 makeBtn메소드실행 & id=text부분에 출력
-        textBtn.initDisp = function () {
-            let num = Math.floor(Math.random() * this.text.length);
-            this.btns = this.text[num].split('');
-            this.makeBtn();
-            document.getElementById('text').innerHTML = this.text[num];
-            this.text = [this.text[num]]; //btns배열과의 비교를 위한 배열설정
-        }
-        //btns배열에서 텍스트를 하나씩 읽어와서 HTML버튼으로 구현하는 메소드
-        textBtn.makeBtn = function () {
-            for (let i = 0; i < this.btns.length; i++) {
-                let btn = '<button class="btn">' + this.btns[i] + '</button>';
-                document.getElementById('textBtn').innerHTML += btn;
-            }
-        }
-        //표시되어있던 버튼 지우고 재배열된 버튼 표시
-        textBtn.dispBtn = function () {
-            document.getElementById('textBtn').innerHTML = '';
-            this.makeBtn();
-            dispResult();
-        }
-        //초기 버튼 생성
-        textBtn.initDisp();
-
-
-        function turn() {
-            for (let i = textBtn.btns.length - 1; i >= 0; i--) {
-                textBtn.btns.push(textBtn.btns[i]);
-            }
-            for (let i = 0; i < textBtn.btns.length; i++) {
-                textBtn.btns.shift()
-            }
-            textBtn.dispBtn();
-        }
-
-        function pushLeft() {
-            textBtn.btns.push(textBtn.btns[0]);
-            textBtn.btns.shift();
-            textBtn.dispBtn();
-        }
-
-        function pushRight() {
-            textBtn.btns.unshift(textBtn.btns[textBtn.btns.length - 1])
-            textBtn.btns.pop();
-            textBtn.dispBtn();
-        }
-
-        function shuffle() {    
-            for(let i = 0; i < Math.ceil(Math.random() * 20); i++) {
-                console.log(1, i);
-                turn();
-            }
-            for(let i = 0; i < Math.ceil(Math.random() * 20); i++) {
-                console.log(2, i);
-                pushLeft();
-            }
-            for(let i = 0; i < Math.ceil(Math.random() * 20); i++) {
-                console.log(3, i);
-                pushRight();
-            }
-        }
-
-        function dispResult() {
-            if (textBtn.text.join('') == textBtn.btns.join('')) {
-                document.getElementById('result').innerHTML = '일치합니다';
-            } else {
-                document.getElementById('result').innerHTML = '일치하지 않습니다';
-            }
-        }
-
+    <script src="puzzle practice.js">   
     </script>
 </body>
 
