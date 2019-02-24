@@ -24,16 +24,16 @@ game.makeBtn = function () {
 
 //표시되어있던 버튼 지우고 재배열된 버튼 표시
 game.updateBtn = function () {
-    document.getElementById('textBtn').innerHTML = '';
+    output.textBtnArea.innerHTML = '';
     this.makeBtn();
     output.dispResult();
 }
 
 //문제 제출하는 메소드
 game.newGame = function () {
-    document.getElementById('textBtn').innerHTML = '';
-    game.selectWord();
-    game.makeBtn();
+    output.textBtnArea.innerHTML = '';
+    this.selectWord();
+    this.makeBtn();
     action.shuffle();
 }
 
@@ -41,7 +41,7 @@ game.newGame = function () {
 game.restart = function () {
     this.newGame();
     output.hideShowBtns('show');
-    document.getElementById('count').innerHTML = '';
+    output.countArea.innerHTML = '';
     output.answer = 0;
 }
 
@@ -82,41 +82,46 @@ action.shuffle = function () {
 
 //화면 출력을 담당하는 객체
 const output = {
-    answer: 0
+    answer: 0,
+    countArea: document.getElementById('count'),
+    textArea: document.getElementById('text'),
+    textBtnArea: document.getElementById('textBtn'),
+    actionBtnsArea: document.getElementById('actionBtns'),
+    restartArea: document.getElementById('restart'),
+    resultArea: document.getElementById('result')
 };
 
 //문제 텍스트를 출력하는 메소드
 output.dispQuest = function (text) {
-    document.getElementById('text').innerHTML = text;
+    this.textArea.innerHTML = text;
 }
 
 //버튼을 출력하는 메소드
 output.dispBtn = function (html) {
-    document.getElementById('textBtn').innerHTML += html;
+    this.textBtnArea.innerHTML += html;
 }
 
 //결과를 판단, 출력하는 메소드
 output.dispResult = function () {
     if (game.quest.join('') == game.btns.join('')) {
-        document.getElementById('result').innerHTML = '일치합니다';
+        this.resultArea.innerHTML = '일치합니다';
         this.countAnswer();
         this.printThks();
     } else {
-        document.getElementById('result').innerHTML = '일치하지 않습니다';
+        this.resultArea.innerHTML = '일치하지 않습니다';
     }
 }
 
 //맞춘횟수 동그라미 출력하는 메소드
 output.countAnswer = function () {
-    document.getElementById('count').innerHTML += 'O';
+    this.countArea.innerHTML += 'O';
     this.answer += 1;
-    console.log(this.answer);
 }
 
 //세문제 맞추면 종료문구 출력하는 메소드
 output.printThks = function () {
     if (this.answer === 3) {
-        document.getElementById('count').innerHTML = 'Thank you for playing!';
+        this.countArea.innerHTML = 'Thank you for playing!';
         this.hideShowBtns('hide')
     } else {
         game.newGame();
@@ -125,16 +130,12 @@ output.printThks = function () {
 
 //액션버튼 숨기는 메소드
 output.hideShowBtns = function (status) {
-    let actionBtns = document.getElementById('actionBtns');
-    let restart = document.getElementById('restart');
     if (status === 'hide') {
-        actionBtns.style.display = 'none';
-        restart.style.display = 'block';
-        console.log('hide');
+        this.actionBtnsArea.style.display = 'none';
+        this.restartArea.style.display = 'block';
     } else {
-        actionBtns.style.display = 'block';
-        restart.style.display = 'none';
-        console.log('show');
+        this.actionBtnsArea.style.display = 'block';
+        this.restartArea.style.display = 'none';
     }
 }
 
