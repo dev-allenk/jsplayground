@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+    <script>
+        function cal(number) {
+            var result = [];
+            for(var i = 1; i < 10; i++) {
+                result.push(number * i);
+            }
+            return result;
+        };
+
+        function formula(number) {
+            var formula = [];
+            for(var i = 1; i < 10; i++) {
+                var ret = "";
+                ret += number;
+                ret += " * ";
+                ret += i;
+                formula.push(ret);
+            }
+            return formula;
+        };
+
+        function print(n, formulas, results) {
+            document.write("<h3>" + n + "단</h3>");
+            for(var i = 0; i < results.length; i++) {
+                var ret = "";
+                ret += formulas[i];
+                ret += " = ";
+                ret += results[i];
+                ret += "<br>"; 
+                document.write(ret);
+            }
+        };
+
+        function main() {
+            for(var i = 2; i < 10; i++) {
+                var results = cal(i);
+                var formulas = formula(i);
+                print(i, formulas, results);
+            }
+        };  
+
+        main();
+    </script>
+</body>
+</html>

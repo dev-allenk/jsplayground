@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+    <script>
+        for(var i = 2; i < 10; i++) {
+            var result = [];
+            var formula = []; //계산결과를 각 단별로 초기화해서 배열에 넣기 위해서 for문 안에 배열을 만듬. 밖에 만들었더니 h3태그 쓰기가 힘들어서..
+                for(var j = 1; j < 10; j++) {
+                    result.push(i*j);
+                    formula.push(i + " * " + j);
+                }
+                document.write("<h3>" + i + "단</h3>");
+                for(var j = 0; j < result.length; j++) {
+                    document.write(formula[j] + " = " + result[j] + "<br>");
+                };
+        };
+    </script>
+</body>
+</html>

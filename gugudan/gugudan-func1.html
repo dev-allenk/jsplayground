@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+    <script>
+        var gugudan = {};
+        gugudan.formulas = [];
+        gugudan.results = [];
+
+        gugudan.cal = function() {
+            for(var i = 2; i < 10; i++) {
+                for(var j = 1; j < 10; j++) {
+                    this.formulas.push(i + " * " + j);
+                    this.results.push(i * j);
+                }
+            }
+        };
+
+        gugudan.print = function() {
+            for(var i = 0; i < this.results.length; i++) {
+                document.write(this.formulas[i] + " = " + this.results[i] + "<br>");
+            }
+        };
+
+        gugudan.cal();
+        gugudan.print();
+    </script>    
+</body>
+</html>

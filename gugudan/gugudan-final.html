@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+    <h1>입력받은 숫자로 구구단 구현하기</h1>
+    <script>
+        var gugudan = {};
+        gugudan.results = [];
+
+        gugudan.cal = function(n1, n2) {
+            for(var i = 1; i-1 < n2; i++) {
+                this.results[i] = n1 * i;
+            }
+        }
+
+        gugudan.print = function(x, n2) {
+            document.write("<h3>" + x + "단</h3>");
+            for(var i = 1; i-1 < n2; i++) {
+                var ret = "";
+                ret += x;
+                ret += " * ";
+                ret += i;
+                ret += " = ";
+                ret += this.results[i];
+                ret += "<br>";
+                document.write(ret);
+            }
+        }
+
+        function main() {
+            var n1 = Number(prompt("첫번째 숫자를 입력하세요"));
+            var n2 = Number(prompt("두번째 숫자를 입력하세요"));
+            for(var i = 2; i <= n1; i++) {
+                gugudan.cal(i, n2);
+                gugudan.print(i, n2);
+            }
+        }
+
+        main();
+    </script>    
+</body>
+</html>
