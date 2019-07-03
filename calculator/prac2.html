@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>계산기 구현 연습</title>
+    <style>
+        button {
+            width: 50px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>계산기 구현 연습</h1>
+    <div>
+        <input id="input" type="text">
+    </div>
+    <div>
+        <button onclick="input.inputNum(event)">7</button>
+        <button onclick="input.inputNum(event)">8</button>
+        <button onclick="input.inputNum(event)">9</button>
+        <button onclick="input.inputOp(event)">/</button>
+    </div>
+    <div>
+        <button onclick="input.inputNum(event)">4</button>
+        <button onclick="input.inputNum(event)">5</button>
+        <button onclick="input.inputNum(event)">6</button>
+        <button onclick="input.inputOp(event)">*</button>
+    </div>
+    <div>
+        <button onclick="input.inputNum(event)">1</button>
+        <button onclick="input.inputNum(event)">2</button>
+        <button onclick="input.inputNum(event)">3</button>
+        <button onclick="input.inputOp(event)">-</button>
+    </div>
+    <div>
+        <button onclick="input.erase(event)">bs</button>
+        <button onclick="input.inputNum(event)">0</button>
+        <button onclick="calc.calculate()">=</button>
+        <button onclick="input.inputOp(event)">+</button>
+    </div>
+
+    <script>
+        input = {
+            data: []
+        };
+        input.inputNum = function (event) {
+            this.data.push(event.target.innerHTML);
+            output.display();
+        }
+        input.inputOp = function (event) {
+            this.data.push(' ' + event.target.innerHTML + ' ');
+            output.display();
+        }
+        input.erase = function (event) {
+            this.data.pop();
+            output.display();
+        }
+        input.prepare = function() {
+            this.data = this.data.join('').split(' ');
+        }
+
+        calc = {};
+        calc.calculate = function () {
+            input.prepare();
+            let result = Number(input.data.shift());
+            while(input.data.length != 0) {
+                let op = input.data.shift();
+                let num = Number(input.data.shift());
+                if(op == '+') {
+                    result += num;
+                } else if(op == '-') {
+                    result -= num;
+                } else if(op == '*') {
+                    result *= num;
+                } else if(op == '/') {
+                    result /= num;
+                }
+            }
+            console.log(result);
+            input.data.push(result);
+            output.display();
+            return result;
+        }
+        output = {};
+        output.display = function() {
+            document.getElementById('input').value = input.data.join('')
+        }
+
+    </script>
+</body>
+
+</html>

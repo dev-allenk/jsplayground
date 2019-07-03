@@ -125,7 +125,6 @@ output.countAnswer = function () {
 //세문제 맞추면 종료문구 출력하는 메소드
 output.printThks = function () {
     if (this.answer === this.maxPlay) {
-        game.endTime = Date.now();
         this.countTime(game.startTime, game.endTime);
         this.countArea.innerHTML = 'Thank you for playing!';
         this.hideShowBtns('hide')
@@ -146,10 +145,11 @@ output.hideShowBtns = function (status) {
 }
 
 //문제 푸는데 걸린 시간을 측정하고 표시하는 메소드
-output.countTime = function (t1, t2) {
-    let playTime = t2 - t1;
-    this.countTimeArea.innerHTML = playTime / 1000 + '초';
+output.countTime = function () {
+    let playTime = Date.now() - game.startTime;
+    this.countTimeArea.innerHTML = '당신의 기록은 : ' + playTime / 1000 + '초 입니다.';
 }
+
 
 //첫 게임 시작
 game.newGame();
